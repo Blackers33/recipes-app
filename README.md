@@ -1,7 +1,7 @@
 # recipes-app
 Work in progress
 
-![Maquette](maquette.jpg)
+![Maquette](preview.png)
 
 Un projet React Native simple en Typescript pour la création de recettes personnalisées et la génération d'une liste de courses intelligente à partir de celles ci.
 
