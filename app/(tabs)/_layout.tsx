@@ -33,7 +33,7 @@ export default function TabLayout() {
 				options={{
 					title: "Recipes",
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='accessibility' color={color} />
+						<IconSymbol size={28} name='restaurant-menu' color={color} />
 					),
 				}}
 			/>
@@ -42,7 +42,7 @@ export default function TabLayout() {
 				options={{
 					title: "List",
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='summarize' color={color} />
+						<IconSymbol size={28} name='format-list-bulleted' color={color} />
 					),
 				}}
 			/>
@@ -51,7 +51,7 @@ export default function TabLayout() {
 				options={{
 					title: "Community Recipes",
 					tabBarIcon: ({ color }) => (
-						<IconSymbol size={28} name='send' color={color} />
+						<IconSymbol size={28} name='language' color={color} />
 					),
 				}}
 			/>

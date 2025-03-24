@@ -3,7 +3,6 @@ import React from "react";
 import {
 	GestureResponderEvent,
 	StyleSheet,
-	Text,
 	TextStyle,
 	TouchableOpacity,
 	useColorScheme,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { IconSymbol } from "./ui/IconSymbol";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ThemedText } from "./ThemedText";
 
 type Variant = Record<"dark" | "light", { button: TextStyle; text: TextStyle }>;
 
@@ -18,33 +18,44 @@ const variants = {
 	primary: {
 		light: {
 			button: { backgroundColor: Colors.light.primary },
-			text: { color: "red" },
+			text: { color: Colors.dark.text },
 		},
 		dark: {
 			button: { backgroundColor: Colors.dark.primary },
-			text: { color: "black" },
+			text: { color: Colors.dark.text },
 		},
 	} satisfies Variant,
 
 	secondary: {
 		light: {
 			button: { backgroundColor: Colors.light.secondary },
-			text: { color: "red" },
+			text: { color: Colors.dark.text },
 		},
 		dark: {
 			button: { backgroundColor: Colors.dark.secondary },
-			text: { color: "black" },
+			text: { color: Colors.dark.text },
 		},
 	} satisfies Variant,
 
 	ghost: {
 		light: {
 			button: { borderColor: Colors.light.primary, borderWidth: 1 },
-			text: { color: "red" },
+			text: { color: Colors.light.primary },
 		},
 		dark: {
 			button: { borderColor: Colors.light.primary, borderWidth: 1 },
 			text: { color: Colors.light.primary },
+		},
+	} satisfies Variant,
+
+	grey: {
+		light: {
+			button: { backgroundColor: "grey" },
+			text: { color: "white" },
+		},
+		dark: {
+			button: { backgroundColor: "grey" },
+			text: { color: "white" },
 		},
 	} satisfies Variant,
 };
@@ -69,22 +80,24 @@ export default function ThemedButton({
 	return (
 		<TouchableOpacity
 			onPress={onPress}
-			style={[variants[variant][theme ?? "light"].button, styles.container]}
+			style={[variants[variant][theme ?? "light"].button, styles.container, props.style]}
 		>
-			{icon && <IconSymbol
-				size={20}
-				color={variants[variant][theme ?? "light"].text.color}
-				name={icon}
-			/>}
+			{icon && (
+				<IconSymbol
+					size={20}
+					color={variants[variant][theme ?? "light"].text.color}
+					name={icon}
+				/>
+			)}
 			{children && (
-				<Text
-					style={[
+				<ThemedText
+					style={StyleSheet.flatten([
 						variants[variant][theme ?? "light"].text,
 						{ paddingHorizontal: 10 },
-					]}
+					])}
 				>
 					{children}
-				</Text>
+				</ThemedText>
 			)}
 		</TouchableOpacity>
 	);
@@ -92,7 +105,7 @@ export default function ThemedButton({
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection : "row",
+		flexDirection: "row",
 		alignSelf: "flex-start",
 		paddingVertical: 10,
 		paddingHorizontal: 10,

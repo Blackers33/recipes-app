@@ -24,7 +24,7 @@ export default function ListScreen() {
 				<HelloWave />
 			</ThemedView>
 			<ThemedView style={styles.stepContainer}>
-				<ThemedButton variant="ghost" icon="send">Merde</ThemedButton>
+				<ThemedButton variant="ghost" icon="send" onPress={()=>console.log('hey')}></ThemedButton>
 				<ThemedText type='subtitle'>Step 1: Try it</ThemedText>
 				<ThemedText>
 					Edit{" "}

@@ -1,22 +1,43 @@
-import { StyleSheet, Image, Platform, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
-import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import RecipeCard from "@/components/RecipeCard";
+import ThemedButton from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import Animated from "react-native-reanimated";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default function RecipesScreen() {
+
+	const recipes = [
+		{ id: "1", title: "Avocats à la tomate" },
+		{
+			id: "2",
+			title: "Tomate aux Avocats, béchamel et camembert",
+		},
+		{ id: "3", title: "Thon à l'islandaise" },
+		{ id: "4", title: "Poireaux sauce frites" },
+
+		{ id: "5", title: "Le fameux tartare d'antan de la mère Chirac" },
+	];
+
 	return (
 		<ThemedView style={styles.mainContainer}>
 			<ThemedView style={styles.titleContainer}>
 				<ThemedText type='title'>Top Bar</ThemedText>
 			</ThemedView>
-			<Animated.ScrollView style={styles.scrollView}><ThemedText>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias molestiae placeat deleniti sint, voluptatum at repellendus in, quidem dicta corporis, debitis ut vel aperiam quis impedit odio perferendis est. Ad. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto culpa dolorum corrupti ipsum esse at fugiat nemo quidem doloremque cumque, sit rerum in molestiae pariatur nulla laudantium vel maxime nisi? Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem itaque magnam iusto atque adipisci dicta incidunt in optio quos modi saepe vero molestias eveniet ipsum, eius perferendis, quibusdam illum libero? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident similique iure impedit placeat, quod neque blanditiis perferendis consectetur molestiae cum ipsum a aliquid perspiciatis inventore aspernatur quidem, non ratione quo. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ducimus voluptatem dignissimos enim temporibus architecto soluta eius? Laudantium nam a nobis repellat aliquam, fugiat sed? Ullam dolorem quibusdam nemo placeat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus aut beatae cupiditate quia cum, deserunt odit, sunt quam, alias fugiat repellat qui eveniet quis? Vero dolores facilis necessitatibus consequuntur maiores. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid perferendis error cumque hic repellat debitis dolorem nihil recusandae quos blanditiis, ea rerum? Doloremque veritatis rem nesciunt reprehenderit quis sed dolor!</ThemedText></Animated.ScrollView>
-      <ThemedView style={styles.button}><ThemedText>Add Recipe</ThemedText></ThemedView>
+		
+				<FlatList
+					data={recipes}
+					renderItem={({ item }) => <RecipeCard recipe={item} />}
+					keyExtractor={(item) => item.id}
+					contentContainerStyle={styles.recipeContainer}
+
+				/>
+		
+			<View style={styles.bottomRightButton}>
+				<ThemedButton icon='add' onPress={() => console.log("pressed Add Recipe")}>
+					Add Recipe
+				</ThemedButton>
+			</View>
 		</ThemedView>
 	);
 }
@@ -26,21 +47,21 @@ const styles = StyleSheet.create({
 	titleContainer: {
 		flexDirection: "row",
 		gap: 8,
-		borderWidth: 1,
-		borderColor: "red",
-		padding: 32,
+		borderBottomWidth: 1,
+		borderColor: "grey",
+		padding: 20,
+		paddingTop: 32,
 	},
-	scrollView: {
-		borderWidth: 1,
-		borderColor: "blue",
+	bottomRightButton: {
+		position: "absolute",
+		bottom: 20,
+		right: 20,
 	},
-  button : {
-    position: "absolute",
-    backgroundColor : "lightblue",
-    bottom : 20,
-    right : 20,
-    padding : 10,
-    borderRadius : 100
-
-  }
+	recipeContainer: {
+		rowGap: 10,
+		marginVertical: 20,
+		flexWrap : "wrap",
+		flexDirection: "row",
+		justifyContent : "space-evenly"
+	},
 });
