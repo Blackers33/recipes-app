@@ -1,14 +1,14 @@
 import React from "react";
-import { ThemedView } from "./ThemedView";
-import { ThemedText } from "./ThemedText";
 import {
-	Image,
 	StyleSheet,
 	TouchableOpacity,
-	useColorScheme,
+	useColorScheme
 } from "react-native";
-import ThemedButton from "./ThemedButton";
 import Animated from "react-native-reanimated";
+import type { Recipe } from "../app/(tabs)/recipes";
+import ThemedButton from "./ThemedButton";
+import { ThemedText } from "./ThemedText";
+import { ThemedView } from "./ThemedView";
 
 declare module "react-native" {
 	interface ImageStyle {
@@ -16,8 +16,8 @@ declare module "react-native" {
 	}
 }
 
-export default function RecipeCard({ recipe }) {
-	function stringShortener(string : string) {
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+	function stringShortener(string: string) {
 		const maxLength = 28;
 		if (string.length > maxLength) {
 			return string.substring(0, maxLength) + "...";

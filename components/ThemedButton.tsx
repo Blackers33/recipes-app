@@ -75,7 +75,6 @@ export default function ThemedButton({
 }: ThemedButtonProps) {
 	const theme = useColorScheme();
 
-	console.log(Boolean(children));
 
 	return (
 		<TouchableOpacity

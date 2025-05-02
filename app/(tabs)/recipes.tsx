@@ -4,37 +4,47 @@ import RecipeCard from "@/components/RecipeCard";
 import ThemedButton from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-
+require('../../models/connection')
+export type Recipe = {
+	id: number
+	title: string
+}
 export default function RecipesScreen() {
-
-	const recipes = [
-		{ id: "1", title: "Avocats à la tomate" },
+	const recipes:Recipe[] = [
+		{ id: 1, title: "Avocats à la tomate" },
 		{
-			id: "2",
+			id: 2,
 			title: "Tomate aux Avocats, béchamel et camembert",
 		},
-		{ id: "3", title: "Thon à l'islandaise" },
-		{ id: "4", title: "Poireaux sauce frites" },
+		{ id: 3, title: "Thon à l'islandaise" },
+		{ id: 4, title: "Poireaux sauce frites" },
 
-		{ id: "5", title: "Le fameux tartare d'antan de la mère Chirac" },
+		{ id: 5, title: "Le fameux tartare d'antan de la mère Chirac" },
 	];
+	console.log("ENV : "+process.env.EXPO_PUBLIC_API_URL);
+
+
+
 
 	return (
 		<ThemedView style={styles.mainContainer}>
 			<ThemedView style={styles.titleContainer}>
 				<ThemedText type='title'>Top Bar</ThemedText>
 			</ThemedView>
-		
-				<FlatList
-					data={recipes}
-					renderItem={({ item }) => <RecipeCard recipe={item} />}
-					keyExtractor={(item) => item.id}
-					contentContainerStyle={styles.recipeContainer}
 
-				/>
-		
+			<FlatList
+				data={recipes}
+				renderItem={({ item }) => <RecipeCard recipe={item} />}
+				contentContainerStyle={{ gap: 10, marginVertical: 10 }}
+				columnWrapperStyle={{  justifyContent: "space-evenly" }}
+				numColumns={2}
+			/>
+
 			<View style={styles.bottomRightButton}>
-				<ThemedButton icon='add' onPress={() => console.log("pressed Add Recipe")}>
+				<ThemedButton
+					icon='add'
+					onPress={() => console.log("pressed Add Recipe")}
+				>
 					Add Recipe
 				</ThemedButton>
 			</View>
@@ -58,10 +68,8 @@ const styles = StyleSheet.create({
 		right: 20,
 	},
 	recipeContainer: {
-		rowGap: 10,
+		gap: 5,
 		marginVertical: 20,
-		flexWrap : "wrap",
-		flexDirection: "row",
-		justifyContent : "space-evenly"
+		justifyContent: "space-evenly",
 	},
 });
