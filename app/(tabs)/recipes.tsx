@@ -4,25 +4,33 @@ import RecipeCard from "@/components/RecipeCard";
 import ThemedButton from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-require('../../models/connection')
+import { useCallback, useEffect, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+
+
 export type Recipe = {
-	id: number
-	title: string
-}
+	id: number;
+	name: string;
+	desciption?: string
+};
+
+
 export default function RecipesScreen() {
-	const recipes:Recipe[] = [
-		{ id: 1, title: "Avocats à la tomate" },
-		{
-			id: 2,
-			title: "Tomate aux Avocats, béchamel et camembert",
-		},
-		{ id: 3, title: "Thon à l'islandaise" },
-		{ id: 4, title: "Poireaux sauce frites" },
 
-		{ id: 5, title: "Le fameux tartare d'antan de la mère Chirac" },
-	];
-	console.log("ENV : "+process.env.EXPO_PUBLIC_API_URL);
+	const [recipes, setRecipes] = useState<Recipe[]>([]);
+	const database = useSQLiteContext();
+	async function loadData() {
+		const result = await database.getAllAsync<Recipe>("SELECT * FROM recipes;");
+		setRecipes(result);
+		console.log(result);
+	}
 
+	useFocusEffect(
+		useCallback(() => {
+			loadData();
+		}, [])
+	);
 
 
 
@@ -36,14 +44,14 @@ export default function RecipesScreen() {
 				data={recipes}
 				renderItem={({ item }) => <RecipeCard recipe={item} />}
 				contentContainerStyle={{ gap: 10, marginVertical: 10 }}
-				columnWrapperStyle={{  justifyContent: "space-evenly" }}
+				columnWrapperStyle={{ justifyContent: "space-evenly" }}
 				numColumns={2}
 			/>
 
 			<View style={styles.bottomRightButton}>
 				<ThemedButton
 					icon='add'
-					onPress={() => console.log("pressed Add Recipe")}
+					onPress={() => router.push('/recipe/create')}
 				>
 					Add Recipe
 				</ThemedButton>
@@ -66,10 +74,5 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		bottom: 20,
 		right: 20,
-	},
-	recipeContainer: {
-		gap: 5,
-		marginVertical: 20,
-		justifyContent: "space-evenly",
 	},
 });

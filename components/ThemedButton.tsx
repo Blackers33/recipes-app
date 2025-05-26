@@ -39,12 +39,12 @@ const variants = {
 
 	ghost: {
 		light: {
-			button: { borderColor: Colors.light.primary, borderWidth: 1 },
-			text: { color: Colors.light.primary },
+			button: { borderColor: Colors.light.primary, borderWidth: 2 },
+			text: { color: Colors.light.primary, fontWeight: "bold" },
 		},
 		dark: {
-			button: { borderColor: Colors.light.primary, borderWidth: 1 },
-			text: { color: Colors.light.primary },
+			button: { borderColor: Colors.light.primary, borderWidth: 2 },
+			text: { color: Colors.light.primary, fontWeight: "bold" },
 		},
 	} satisfies Variant,
 
@@ -106,8 +106,10 @@ const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
 		alignSelf: "flex-start",
+		alignItems: "center",
 		paddingVertical: 10,
 		paddingHorizontal: 10,
 		borderRadius: 100,
+		height: 45
 	},
 });

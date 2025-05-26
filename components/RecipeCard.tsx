@@ -9,6 +9,7 @@ import type { Recipe } from "../app/(tabs)/recipes";
 import ThemedButton from "./ThemedButton";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
+import { router } from "expo-router";
 
 declare module "react-native" {
 	interface ImageStyle {
@@ -27,7 +28,10 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 
 	const isDarkTheme = useColorScheme() === "dark";
 	return (
-		<TouchableOpacity onPress={() => console.log("pressed Card")}>
+		<TouchableOpacity
+			onPress={() => router.push(`/recipe/${recipe.id}/details`)}
+			onLongPress={() => console.log("long press")}
+		>
 			<ThemedView style={styles.mainContainer}>
 				<ThemedView style={styles.imageContainer}>
 					<Animated.Image
@@ -46,7 +50,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 					/>
 				</ThemedView>
 				<ThemedText type='defaultSemiBold'>
-					{stringShortener(recipe.title)}
+					{stringShortener(recipe.name)}
 				</ThemedText>
 				<ThemedText type='default' style={styles.subtext}>
 					This is a subtitle
