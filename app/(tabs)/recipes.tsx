@@ -17,13 +17,14 @@ export type Recipe = {
 
 
 export default function RecipesScreen() {
+	console.log("DEBUG recipes.tsx");
+
 
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const database = useSQLiteContext();
 	async function loadData() {
 		const result = await database.getAllAsync<Recipe>("SELECT * FROM recipes;");
 		setRecipes(result);
-		console.log(result);
 	}
 
 	useFocusEffect(
