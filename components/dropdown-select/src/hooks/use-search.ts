@@ -59,6 +59,8 @@ export const useSearch = ({
     [searchFlatList]
   );
 
+  
+
   const isSection = isSectionList(initialOptions);
 
   const onSearch = useCallback(
